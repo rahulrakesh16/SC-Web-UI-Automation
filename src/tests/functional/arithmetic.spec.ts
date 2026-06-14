@@ -325,4 +325,27 @@ test.describe('Arithmetic Operations', () => {
       });
     },
   );
+
+  test(
+    'TC-ARITH-016: Subtracting two integers (5 − 3) should display the correct difference of 2 — currently FAILS because the "−" button appends "/" due to BUG-001',
+    { tag: ['@bug', '@regression', '@P1'] },
+    async ({ pageManager }) => {
+      const calc = pageManager.onCalculatorPage();
+
+      await test.step(`Enter 5 − 3 — note: ${KNOWN_BUG_NOTES.BUG_001}`, async () => {
+        await calc.buttons.button5.click();
+        await calc.buttons.buttonMinus.click();
+        await calc.buttons.button5.click();
+      });
+
+      await test.step('Assert correct result is 2 (FAILS while BUG-001 is open)', async () => {
+        const result = await calc.calculate();
+        // Correct: 5 − 3 = 2
+        // Actual:  "−" button appends "/" so display becomes "5/5", result is 1
+        expect(result, 'BUG-001: subtraction produces wrong result because "−" appends "/"').toBe(
+          '2',
+        );
+      });
+    },
+  );
 });
