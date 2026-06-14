@@ -1,0 +1,26 @@
+ls:
+  src/pages:
+    .ts: kebab-case
+  src/configuration:
+    .ts: kebab-case
+  src/object-repository:
+    .ts: kebab-case
+  src/utilities:
+    .ts: kebab-case
+  src/types:
+    .ts: kebab-case
+  src/tests/functional:
+    .ts: kebab-case
+  src/tests/boundary:
+    .ts: kebab-case
+  src/tests/security:
+    .ts: kebab-case
+  src/tests/regression:
+    .ts: kebab-case
+
+ignore:
+  - node_modules
+  - .git
+  - playwright-report
+  - test-results
+  - results

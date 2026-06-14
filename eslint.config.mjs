@@ -1,0 +1,158 @@
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import playwright from 'eslint-plugin-playwright';
+import prettier from 'eslint-plugin-prettier';
+import security from 'eslint-plugin-security';
+
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+  {
+    ignores: [
+      'node_modules/**',
+      'playwright-report/**',
+      'test-results/**',
+      'results/**',
+      '*.mjs',
+      '*.cjs',
+    ],
+  },
+
+
+  {
+    ...playwright.configs['flat/recommended'],
+    files: ['src/tests/**/*.ts'],
+    rules: {
+      ...playwright.configs['flat/recommended'].rules,
+      'playwright/no-skipped-test': 'warn',
+      'playwright/prefer-web-first-assertions': 'warn',
+      'playwright/no-useless-await': 'error',
+      'playwright/no-wait-for-timeout': 'error',
+      'playwright/max-nested-describe': ['error', { max: 2 }],
+      'playwright/valid-expect-in-promise': 'error',
+      'playwright/missing-playwright-await': 'error',
+      'playwright/no-eval': 'off',
+      'playwright/prefer-locator': 'off',
+    },
+  },
+
+  {
+    files: ['src/**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: './tsconfig.json',
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tseslint,
+      prettier,
+      security,
+    },
+    rules: {
+      ...tseslint.configs['recommended'].rules,
+      'prettier/prettier': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/await-thenable': 'error',
+      '@typescript-eslint/no-misused-promises': 'error',
+      '@typescript-eslint/require-await': 'error',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+      '@typescript-eslint/no-non-null-assertion': 'error',
+      '@typescript-eslint/no-inferrable-types': 'error',
+      '@typescript-eslint/no-redundant-type-constituents': 'error',
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+      '@typescript-eslint/no-unsafe-call': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'warn',
+      '@typescript-eslint/no-unsafe-return': 'warn',
+      '@typescript-eslint/prefer-nullish-coalescing': 'error',
+      '@typescript-eslint/prefer-optional-chain': 'error',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
+      ],
+      '@typescript-eslint/array-type': ['error', { default: 'array' }],
+      '@typescript-eslint/no-shadow': 'error',
+      '@typescript-eslint/no-use-before-define': [
+        'error',
+        { functions: false, classes: true, variables: true },
+      ],
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'default',
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
+          trailingUnderscore: 'forbid',
+        },
+        {
+          selector: 'variable',
+          format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+          leadingUnderscore: 'allow',
+        },
+        {
+          selector: 'typeLike',
+          format: ['PascalCase'],
+        },
+        {
+          selector: 'enumMember',
+          format: ['UPPER_CASE', 'camelCase'],
+        },
+        {
+          selector: 'parameter',
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
+        },
+        {
+          selector: 'objectLiteralProperty',
+          format: null,
+        },
+      ],
+      'prefer-const': 'error',
+      'no-var': 'error',
+      'no-shadow': 'off',
+      'no-use-before-define': 'off',
+      'eqeqeq': ['error', 'always'],
+      'curly': ['error', 'all'],
+      'no-else-return': 'error',
+      'no-nested-ternary': 'error',
+      'no-unneeded-ternary': 'error',
+      'no-return-assign': ['error', 'always'],
+      'default-case': 'error',
+      'no-fallthrough': 'error',
+      'dot-notation': 'error',
+      'yoda': 'error',
+      'no-useless-concat': 'error',
+      'prefer-template': 'error',
+      'no-useless-return': 'error',
+      'no-lonely-if': 'error',
+      'no-duplicate-imports': 'error',
+      'no-throw-literal': 'error',
+      'prefer-promise-reject-errors': 'error',
+      'no-eval': 'error',
+      'no-implied-eval': 'error',
+      'no-new-func': 'error',
+      'no-script-url': 'error',
+      'no-alert': 'error',
+      'no-caller': 'error',
+      'no-proto': 'error',
+      'no-extend-native': 'error',
+      'no-iterator': 'error',
+      'security/detect-eval-with-expression': 'error',
+      'security/detect-non-literal-regexp': 'warn',
+      'security/detect-object-injection': 'warn',
+      'security/detect-possible-timing-attacks': 'warn',
+      'security/detect-unsafe-regex': 'error',
+      'security/detect-non-literal-fs-filename': 'warn',
+      'security/detect-pseudoRandomBytes': 'error',
+      'security/detect-new-buffer': 'error',
+      'no-console': 'warn',
+      'no-debugger': 'error',
+      'no-empty': 'error',
+      'no-restricted-globals': ['error', 'event'],
+    },
+  },
+];

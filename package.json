@@ -1,0 +1,49 @@
+{
+  "name": "sc-web-ui-automation",
+  "version": "1.0.0",
+  "description": "Playwright + TypeScript POM framework for Scientific Calculator web UI automation",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:ci": "playwright test --reporter=list,html",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:functional": "playwright test src/tests/functional",
+    "test:boundary": "playwright test src/tests/boundary",
+    "test:security": "playwright test src/tests/security",
+    "test:regression": "playwright test src/tests/regression",
+    "test:smoke": "playwright test --grep @smoke",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "ts:check": "tsc --noEmit",
+    "ls-lint": "ls-lint",
+    "quality:check": "npm run ts:check && npm run lint && npm run format:check && npm run ls-lint",
+    "docker:build": "docker build -t sc-web-ui-automation .",
+    "docker:quality": "docker run --rm sc-web-ui-automation npm run quality:check",
+    "docker:test": "docker run --rm --ipc=host sc-web-ui-automation npm test",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@ls-lint/ls-lint": "^2.3.1",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.21",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^9.27.0",
+    "eslint-plugin-playwright": "^2.2.0",
+    "eslint-plugin-prettier": "^5.3.1",
+    "eslint-plugin-security": "^4.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  }
+}
