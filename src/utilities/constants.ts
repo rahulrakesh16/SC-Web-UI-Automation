@@ -22,6 +22,8 @@ export const KNOWN_BUG_NOTES = {
   BUG_002: 'BUG-002: "3" button appends "0" not "3"',
   BUG_003: 'BUG-003: sin() always returns 1 regardless of input',
   BUG_004: 'BUG-004: Division operands reversed — a÷b computes b/a',
+  BUG_005: 'BUG-005: Evaluating empty display shows "undefined" not Error/empty',
+  BUG_006: 'BUG-006: Unclosed parenthesis "(5+2" silently computes 7 instead of Error',
   BUG_007: 'BUG-007: Parser drops trailing ×factor after closing paren — (a+b)×c returns (a+b)',
   BUG_008: 'BUG-008: Double decimal "1..5" silently evaluates to "1" instead of NaN/Error',
 } as const;
