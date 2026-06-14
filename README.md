@@ -43,8 +43,8 @@ SC-Web-UI-Automation/
 │   │   └── calculator-types.ts       # ScientificFn union type
 │   └── tests/
 │       ├── functional/
-│       │   ├── arithmetic.spec.ts    # 15 arithmetic tests (TC-ARITH-001–015)
-│       │   ├── scientific.spec.ts    # 12 scientific function tests (TC-SCI-001–012)
+│       │   ├── arithmetic.spec.ts    # 16 arithmetic tests (TC-ARITH-001–016)
+│       │   ├── scientific.spec.ts    # 13 scientific function tests (TC-SCI-001–013)
 │       │   └── display.spec.ts       # 8 display state tests (TC-DISP-001–008)
 │       ├── boundary/
 │       │   └── boundary.spec.ts      # 15 edge-case tests (TC-BOUND-001–015)
@@ -255,7 +255,7 @@ Enforced by `commitlint` (`@commitlint/config-conventional` + custom rules):
 
 ## Test Cases
 
-### Arithmetic Tests (15 cases)
+### Arithmetic Tests (16 cases)
 
 | TC-ID        | Test Name                                                                                      | Tags                 | Priority |
 | ------------ | ---------------------------------------------------------------------------------------------- | -------------------- | -------- |
@@ -274,8 +274,9 @@ Enforced by `commitlint` (`@commitlint/config-conventional` + custom rules):
 | TC-ARITH-013 | The digit button "3" incorrectly appends "0" to the display — BUG-002 ⚠                        | `@bug @regression`   | P1       |
 | TC-ARITH-014 | Chaining the same addition three times (5 + 5 + 5) should accumulate to 15                     | —                    | P2       |
 | TC-ARITH-015 | Multiplying large numbers (999 × 999) should display the correct product 998001                | —                    | P2       |
+| TC-ARITH-016 | Subtracting two integers (5 − 3) should display 2 — FAILS while BUG-001 is open ⚠              | `@bug @regression`   | P1       |
 
-### Scientific Function Tests (12 cases)
+### Scientific Function Tests (13 cases)
 
 | TC-ID      | Test Name                                                                                           | Tags                 | Priority |
 | ---------- | --------------------------------------------------------------------------------------------------- | -------------------- | -------- |
@@ -291,6 +292,7 @@ Enforced by `commitlint` (`@commitlint/config-conventional` + custom rules):
 | TC-SCI-010 | Entering sin(90) confirms the bug — sin returns 1 not the correct value near 0.893 — BUG-003 ⚠      | `@bug @regression`   | P1       |
 | TC-SCI-011 | Applying a scientific function to an empty display should show an Error message                     | `@smoke`             | P2       |
 | TC-SCI-012 | Applying cosine to a very large number (1000) should return a valid numeric result without crashing | —                    | P3       |
+| TC-SCI-013 | Tangent of 90° is undefined — calculator should display Infinity or very large number, not crash    | —                    | P2       |
 
 ### Display Behaviour Tests (8 cases)
 
