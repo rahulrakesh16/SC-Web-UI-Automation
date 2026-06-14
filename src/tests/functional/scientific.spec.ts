@@ -185,4 +185,28 @@ test.describe('Scientific Functions', () => {
       });
     },
   );
+
+  test(
+    'TC-SCI-013: Tangent of 90 degrees is mathematically undefined — the calculator should display Infinity or a very large number, not crash',
+    { tag: ['@P2'] },
+    async ({ pageManager }) => {
+      const calc = pageManager.onCalculatorPage();
+
+      await test.step('Enter 90 and click tan', async () => {
+        await calc.buttons.button9.click();
+        await calc.buttons.button0.click();
+        await calc.buttons.buttonTan.click();
+        const result = await calc.getDisplayValue();
+
+        // tan(90°) in JavaScript is Number.POSITIVE_INFINITY or an extremely large value
+        // depending on floating-point precision — it must not throw or display NaN
+        const isLargeOrInfinite =
+          result === 'Infinity' || result === '-Infinity' || Math.abs(parseFloat(result)) > 1e10;
+        expect(
+          isLargeOrInfinite,
+          `tan(90°) should be Infinity or a very large number, got "${result}"`,
+        ).toBe(true);
+      });
+    },
+  );
 });
